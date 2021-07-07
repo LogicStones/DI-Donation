@@ -1,0 +1,101 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewData["Title"] = User.IsInRole("Admin") ? "Add New Company" : "Add New User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts {
+
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+	<script type="text/javascript">
+
+		// Add the following code if you want the name of the file appear on select
+		$(".custom-file-input").on("change", function () {
+			var fileName = $(this).val().split("\\").pop();
+			$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+		});
+	</script>
+}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+            <div class="card card-body">
+                @if (User.IsInRole("Admin"))
+                {
+                    <h3 class="box-title m-b-0">Add New Company</h3>
+                }
+                else
+                {
+                    <h3 class="box-title m-b-0">Add New User</h3>
+                }
+                <form enctype="multipart/form-data" style="margin-top: 20px;" method="post">
+                
+                    <div class="text-danger">
+                        @Html.ValidationSummary()
+                    </div>
+                
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label asp-for="CompanyName"></label>
+                                    <input asp-for="CompanyName" class="form-control" />
+                                    <span asp-validation-for="CompanyName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-12">
+                                <div class="form-group">
+                                    <label asp-for="CompanyLogo" class="control-label"></label>
+                                    <div class="custom-file">
+                                        <input asp-for="CompanyLogo" class="custom-file-input" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                    <span asp-validation-for="CompanyLogo" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        @Html.HiddenFor(m => m.CompanyName)
+                    }
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label asp-for="UserName"></label>
+                                <input asp-for="UserName" class="form-control" />
+                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-12">
+                            <div class="form-group">
+                                <label asp-for="ConfirmPassword"></label>
+                                <input asp-for="ConfirmPassword" class="form-control" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-success waves-effect waves-light m-r-10" style="background: #779216 !important; float: right; "><i class="fa fa-plus-circle m-r-5"></i> Save</button>
+                            <a asp-action="Index" type="button" class="btn btn-info m-r-5" style="float: right !important;"><i class="fa fa-arrow-circle-left m-r-5"></i> Back</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+		</div>
+	</div>
+</div>

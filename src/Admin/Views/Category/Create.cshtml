@@ -1,0 +1,74 @@
+﻿@model CategoryViewModel
+@{
+    ViewData["Title"] = "Category";
+}
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="card-title">Add New Category</h4>
+                        </div>
+                        <div class="col-md-6 pull-right">
+                            <a asp-action="Index" type="button" class="btn btn-primary btn-rounded float-right" style="color: white;"><i class="fa fa-arrow-circle-left m-r-5"></i> Back</a>
+                        </div>
+                    </div>
+
+                    <form asp-controller="Category" asp-action="Create" style="margin-top: 20px;" method="post">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label asp-for="Name"></label>
+                                <input asp-for="Name" id="txtTitle" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label asp-for="TypeId"></label>
+                                <div class="demo-radio-button">
+                                    @for (int i = 0; i < Model.lstCategoryTypes.Count; i++)
+                                    {
+                                        @if (Model.TypeId == Model.lstCategoryTypes[i].Id)
+                                        {
+                                            @Html.RadioButtonFor(m => m.TypeId, Model.lstCategoryTypes[i].Id, new { type = "radio", @class = "with-gap", id = "rbtnType" + Model.lstCategoryTypes[i].Name, @checked = "checked" })
+                                        }
+                                        else
+                                        {
+                                            @Html.RadioButtonFor(m => m.TypeId, Model.lstCategoryTypes[i].Id, new { type = "radio", @class = "with-gap", id = "rbtnType" + Model.lstCategoryTypes[i].Name })
+                                        }
+                                        <label for="@("rbtnType" + Model.lstCategoryTypes[i].Name)">@Model.lstCategoryTypes[i].Name</label>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-right">
+                            <button id="btnSave" type="submit" class="btn btn-success btn-rounded color1">
+                                @if (Model.Id > 0)
+                                {
+                                    @Html.HiddenFor(m => m.Id)
+                                    <i class="fa fa-check-circle m-r-5"></i>
+                                    <span>Update</span>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-plus-circle m-r-5"></i>
+                                    <span>Add</span>
+                                }
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

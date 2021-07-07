@@ -1,0 +1,57 @@
+﻿@model List<TransactionsListViewModel>
+
+@{
+    ViewData["Title"] = "Gift Aids";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="card-title">Gift Aids</h4>
+                            <h6 class="card-subtitle">Recent Transactions</h6>
+                        </div>
+                    </div>
+                    <div class="table-responsive m-t-40">
+                        <table id="myTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>DateTime</th>
+                                    <th>Type</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Fee</th>
+                                    <th>Fee Inclusive</th>
+                                    <th>Donor Name</th>
+                                    <th>Address</th>
+                                    <th>Postcode</th>
+                                    <th>Transaction ID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var transaction in Model)
+                                {
+                                    <tr>
+                                        <td><h6>@transaction.TimeStamp</h6></td>
+                                        <td><h6>@transaction.Type</h6></td>
+                                        <td><h6>@transaction.Category</h6></td>
+                                        <td><h6>@transaction.Amount</h6></td>
+                                        <td><h6>@transaction.TransactionFees</h6></td>
+                                        <td><h6>@transaction.isFeeInclusive</h6></td>
+                                        <td><h6>@transaction.SponsorFirstName @transaction.SponsorLastName</h6></td>
+                                        <td><h6>@transaction.SponsorAddress</h6></td>
+                                        <td><h6>@transaction.SponsorPostCode</h6></td>
+                                        <td><h6>@transaction.ReferenceTransactionId</h6></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

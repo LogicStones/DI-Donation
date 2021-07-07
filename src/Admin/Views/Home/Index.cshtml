@@ -1,0 +1,108 @@
+﻿@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex no-block">
+                                <div class="m-r-20 align-self-center">
+                                    <span class="lstick m-r-20"></span>
+                                    <img src="~/assets/images/icon/donation.png" alt="Nafila Donations" />
+                                </div>
+                                <div class="align-self-center">
+                                    <h6 class="text-muted m-t-10 m-b-0">Total Nafila</h6>
+                                    <h2 class="m-t-0">@Model.TotalNafila</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex no-block">
+                                <div class="m-r-20 align-self-center">
+                                    <span class="lstick m-r-20"></span>
+                                    <img src="~/assets/images/icon/donation.png" alt="Wajiba Donations" />
+                                </div>
+                                <div class="align-self-center">
+                                    <h6 class="text-muted m-t-10 m-b-0">Total Wajiba</h6>
+                                    <h2 class="m-t-0">@Model.TotalWajiba</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex no-block">
+                                <div class="m-r-20 align-self-center">
+                                    <span class="lstick m-r-20"></span>
+                                    <img src="~/assets/images/icon/gift-box.png" alt="Gift Aids" />
+                                </div>
+                                <div class="align-self-center">
+                                    <h6 class="text-muted m-t-10 m-b-0">Total Gift Aids</h6>
+                                    <h2 class="m-t-0">@Model.TotalGiftAids</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h4 class="card-title text-left">Donations</h4>
+
+                    <div class="btn-group m-b-0">
+                        <button type="button" id="btnToday" class="btn btn-secondary waves-effect waves-light">Today</button>
+                        <button type="button" id="btnMonth" class="btn btn-secondary waves-effect waves-light">Month</button>
+                        <button type="button" id="btnAnnual" class="btn btn-secondary waves-effect waves-light">Year</button>
+                    </div>
+
+                    <div id="donation-chart" style="height:275px"></div>
+
+
+                    @Html.HiddenFor(m => m.TodayNafila, new { @id = "hdfTodayNafila" })
+                    @Html.HiddenFor(m => m.TodayWajiba, new { @id = "hdfTodayWajiba" })
+
+                    @Html.HiddenFor(m => m.MonthlyNafila, new { @id = "hdfMonthlyNafila" })
+                    @Html.HiddenFor(m => m.MonthlyWajiba, new { @id = "hdfMonthlyWajiba" })
+
+                    @Html.HiddenFor(m => m.AnnualNafila, new { @id = "hdfAnnualNafila" })
+                    @Html.HiddenFor(m => m.AnnualWajiba, new { @id = "hdfAnnualWajiba" })
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Gift Aids</h4>
+                    <canvas id="gifts-chart" height="150"></canvas>
+                    @Html.HiddenFor(m => m.GiftAidAnnualData, new { @id = "hdfGitAidAnnualData" })
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+@section scripts{
+    <script src="~/assets/plugins/raphael/raphael-min.js"></script>
+    <script src="~/assets/plugins/morrisjs/morris.js"></script>
+    <script src="~/assets/plugins/Chart.js/Chart.min.js"></script>
+    <script src="~/js/dashboard-data.js"></script>
+}
