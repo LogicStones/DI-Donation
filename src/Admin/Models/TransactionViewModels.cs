@@ -8,14 +8,14 @@ namespace Admin.Models
         public float TotalNafila { get; set; }
         public float TotalGiftAids { get; set; }
 
-        public float TodayWajiba { get; set; }
-        public float TodayNafila { get; set; }
-
-        public float MonthlyWajiba { get; set; }
-        public float MonthlyNafila { get; set; }
-
-        public float AnnualWajiba { get; set; }
-        public float AnnualNafila { get; set; }
+        public string TodayWajiba { get; set; }
+        public string TodayNafila { get; set; }
+               
+        public string MonthlyWajiba { get; set; }
+        public string MonthlyNafila { get; set; }
+               
+        public string AnnualWajiba { get; set; }
+        public string AnnualNafila { get; set; }
      
         public string GiftAidAnnualData { get; set; }
     }

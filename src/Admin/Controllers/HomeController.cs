@@ -132,14 +132,14 @@ namespace Admin.Controllers
                 TotalWajiba = transactions.Where(t => t.TypeId == wajibaType).Sum(t => t.Amount),
                 TotalNafila = transactions.Where(t => t.TypeId == nafilaType).Sum(t => t.Amount),
 
-                TodayWajiba = transactions.Where(t => t.TypeId == wajibaType && t.TimeStamp >= dayStart && t.TimeStamp <= dayEnd).Sum(t => t.Amount),
-                TodayNafila = transactions.Where(t => t.TypeId == nafilaType && t.TimeStamp >= dayStart && t.TimeStamp <= dayEnd).Sum(t => t.Amount),
+                TodayWajiba = transactions.Where(t => t.TypeId == wajibaType && t.TimeStamp >= dayStart && t.TimeStamp <= dayEnd).Sum(t => t.Amount).ToString("0.##"),
+                TodayNafila = transactions.Where(t => t.TypeId == nafilaType && t.TimeStamp >= dayStart && t.TimeStamp <= dayEnd).Sum(t => t.Amount).ToString("0.##"),
 
-                MonthlyWajiba = transactions.Where(t => t.TypeId == wajibaType && t.TimeStamp >= monthStart && t.TimeStamp <= monthEnd).Sum(t => t.Amount),
-                MonthlyNafila = transactions.Where(t => t.TypeId == nafilaType && t.TimeStamp >= monthStart && t.TimeStamp <= monthEnd).Sum(t => t.Amount),
+                MonthlyWajiba = transactions.Where(t => t.TypeId == wajibaType && t.TimeStamp >= monthStart && t.TimeStamp <= monthEnd).Sum(t => t.Amount).ToString("0.##"),
+                MonthlyNafila = transactions.Where(t => t.TypeId == nafilaType && t.TimeStamp >= monthStart && t.TimeStamp <= monthEnd).Sum(t => t.Amount).ToString("0.##"),
 
-                AnnualWajiba = transactions.Where(t => t.TypeId == wajibaType && t.TimeStamp >= yearStart && t.TimeStamp <= yearEnd).Sum(t => t.Amount),
-                AnnualNafila = transactions.Where(t => t.TypeId == nafilaType && t.TimeStamp >= yearStart && t.TimeStamp <= yearEnd).Sum(t => t.Amount),
+                AnnualWajiba = transactions.Where(t => t.TypeId == wajibaType && t.TimeStamp >= yearStart && t.TimeStamp <= yearEnd).Sum(t => t.Amount).ToString("0.##"),
+                AnnualNafila = transactions.Where(t => t.TypeId == nafilaType && t.TimeStamp >= yearStart && t.TimeStamp <= yearEnd).Sum(t => t.Amount).ToString("0.##"),
 
                 GiftAidAnnualData = string.Join(",", lstGiftData.Values.ToArray())
             };
