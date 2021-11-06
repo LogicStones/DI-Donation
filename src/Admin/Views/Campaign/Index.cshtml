@@ -1,0 +1,48 @@
+﻿
+@model List<CampaignViewModel>
+
+@{
+    ViewData["Title"] = "Campaign";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="card-title">Campaign</h4>
+                            <h6 class="card-subtitle">Recent Campaign</h6>
+                        </div>
+                    </div>
+                    <div class="table-responsive m-t-40">
+                        <table id="myTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Amount</th>
+                                    <th>Fees</th>
+                                    <th>Transaction Id</th>
+                                    <th>DateTime</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var campaign in Model)
+                                {
+                                    <tr>
+                                        <td><h6>@campaign.Name</h6></td>
+                                        <td><h6>@campaign.Amount</h6></td>
+                                        <td><h6>@campaign.Fees</h6></td>
+                                        <td><h6>@campaign.TransactionId</h6></td>
+                                        <td><h6>@campaign.CreatedAt</h6></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

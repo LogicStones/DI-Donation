@@ -6,7 +6,112 @@
 @section Scripts {
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script type="text/javascript">
+    var categoryid = $('#hdfCategoryId').val();
+    if (categoryid == 0) {
+        $("div.SubCategory").hide();
+    } else {
+        var subcategory = $('#chkSubcategory').is(":checked");
+        if (subcategory == true) {
+            $("div.SubCategory").show();
+        } else {
+            $("div.SubCategory").hide();
+        }
 
+    }
+
+    $("#chkSubcategory").click(function () {
+        if ($(this).is(":checked")) {
+            $("div.SubCategory").show(300);
+        } else {
+            $("div.SubCategory").hide(200);
+        }
+    });
+
+
+    $(document).ready(function () {
+
+        $("#btnSubCategory").click(function (e) {
+            e.preventDefault();
+            var subcategoryname = $('#txtSubCategoryTitle').val();
+            if (subcategoryname > 0) {
+                var html = '<div class="row">' +
+                    '<div class="col-6">' +
+                    '<div class="form-group">' +
+                    '@Html.LabelFor(model => model.SubCategoryName)' +
+                    '<input type="text" name="SubCategoryName" class="form-control" id="txtSubCategoryTitle", value="@Model.SubCategoryName" />' +
+                    '<div class="text-danger">' +
+                    '@Html.ValidationMessageFor(model => model.SubCategoryName)' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-6">' +
+                    '<div class="form-group">' +
+                    '@Html.LabelFor(model=>model.QuotedPrice)' +
+                    '<input type="text" name="QuotedPrice" class="form-control" id="txtSubCategoryTitle", value="@Model.QuotedPrice" />' +
+                    '<div class="text-danger">'
+                    '@Html.ValidationMessageFor(model=>model.QuotedPrice)' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+                $(".newsubCategory").append($(html));
+            } else {
+                var html = '<div class="row">' +
+                    '<div class="col-6">' +
+                    '<div class="form-group">' +
+                    '@Html.LabelFor(model => model.SubCategoryName)' +
+                    '<input type="text" name="SubCategoryName" class="form-control" id="txtSubCategoryTitle", value="" />' +
+                    '<div class="text-danger">' +
+                    '@Html.ValidationMessageFor(model => model.SubCategoryName)' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-6">' +
+                    '<div class="form-group">' +
+                    '@Html.LabelFor(model=>model.QuotedPrice)' +
+                    '<input type="text" name="QuotedPrice" class="form-control" id="txtSubCategoryTitle", value="0" />' +
+                    '<div class="text-danger">'
+                    '@Html.ValidationMessageFor(model=>model.QuotedPrice)' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+                $(".newsubCategory").append($(html));
+            }
+
+            
+            return false;
+        });
+
+
+
+        jQuery(document).on('click', '.remove_this', function () {
+            jQuery(this).parent().remove();
+            return false;
+        });
+        $("input[type=submit]").click(function (e) {
+            e.preventDefault();
+            $(this).next("[name=textbox]")
+                .val(
+                    $.map($(".inc :text"), function (el) {
+                        return el.value
+                    }).join(",\n")
+                )
+        })
+    });
+</script>
+
+}
+
+@section stylesheet{
+
+    <style type="text/css">
+        div.form-group input[type='checkbox'] {
+            position: static !important;
+            opacity: 100 !important;
+        }
+    </style>
 }
 
 <div class="container-fluid">
@@ -22,7 +127,7 @@
                             <a asp-action="Index" type="button" class="btn btn-primary btn-rounded float-right" style="color: white;"><i class="fa fa-arrow-circle-left m-r-5"></i> Back</a>
                         </div>
                     </div>
-
+                    @Html.HiddenFor(model=>model.Id,new { @id="hdfCategoryId"})
                     <form asp-controller="Category" asp-action="Create" style="margin-top: 20px;" method="post">
                         <div class="col-12">
                             <div class="form-group">
@@ -49,6 +154,76 @@
                                     }
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model=>model.HasSubCategory)
+                                @Html.CheckBoxFor(model=>model.HasSubCategory,new {@id= "chkSubcategory" })
+                            </div>
+                        </div>
+                        <div class="SubCategory">
+                            @if (Model.Id > 0 && Model.SubCategoryName.Count > 0)
+                            {
+                                <div class="row">
+                                    @for (int i = 0; i < Model.SubCategoryName.Count; i++)
+                                    {
+                                        <input asp-for="SubCategoryId" type="hidden" id="hdfSubCategory" value="@Model.SubCategoryId[i]"/>
+                                        <div class="col-6">
+                                            <div class="form-group">
+
+                                                <label asp-for="SubCategoryName"></label>
+                                                <input asp-for="SubCategoryName" class="form-control" id="txtSubCategoryTitle", value="@Model.SubCategoryName[i]" />
+                                                <span asp-validation-for="SubCategoryName" class="text-danger"></span>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+
+                                                <label asp-for="QuotedPrice"></label>
+                                                <input asp-for="QuotedPrice" class="form-control" id="txtSubCategoryTitle" , value="@Model.QuotedPrice[i]" />
+                                                <span asp-validation-for="QuotedPrice" class="text-danger"></span>
+
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+
+                            }
+                            else
+                            {
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+
+                                    <label asp-for="SubCategoryName"></label>
+                                    <input asp-for="SubCategoryName" class="form-control" id="txtSubCategoryTitle" , value="" />
+                                    <span asp-validation-for="SubCategoryName" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+
+                                    <label asp-for="QuotedPrice"></label>
+                                    <input asp-for="QuotedPrice" class="form-control" id="txtSubCategoryTitle" , value="0" />
+                                    <span asp-validation-for="QuotedPrice" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                            }
+
+                            <div class="newsubCategory"></div>
+                            <button type="button" id="btnSubCategory" class="btn btn-success btn-rounded color1">
+                                <i class="fa fa-plus-circle m-r-5"></i>
+                                <span>Sub Category</span>
+                            </button>
+
                         </div>
                         <div class="col-12 text-right">
                             <button id="btnSave" type="submit" class="btn btn-success btn-rounded color1">

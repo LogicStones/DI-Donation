@@ -5,13 +5,14 @@ using System.Text;
 
 namespace DataAccess.Entities
 {
-    public class Categories
+    public class Campaign
     {
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public int TypeId { get; set; }
-        public bool isActive { get; set; }
-        public bool HasSubCategory { get; set; }
+        public float Amount { get; set; }
+        public float Fees { get; set; }
+        public string TransactionId { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

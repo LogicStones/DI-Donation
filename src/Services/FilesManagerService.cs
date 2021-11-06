@@ -7,7 +7,8 @@ namespace Services
     {
         public static string UploadFile(IFormFile file, string path, string fileName)
         {
-            string fileNameWithExtension = fileName + Path.GetExtension(file.FileName);
+            //string fileNameWithExtension = fileName + Path.GetExtension(file.FileName);
+            string fileNameWithExtension = fileName;
             string pathWithFileName = Path.Combine(path, fileNameWithExtension);
 
             if (!Directory.Exists(path))

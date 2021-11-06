@@ -25,6 +25,9 @@ namespace DataAccess
         public virtual DbSet<ApplicationRole> ApplicationRole { get; set; }
         public virtual DbSet<Categories> Category { get; set; }
         public virtual DbSet<Transactions> Transaction { get; set; }
+        public virtual DbSet<SubCategories> SubCategories { get; set; }
+        public virtual DbSet<Campaign> Campaigns { get; set; }
+        public virtual DbSet<Screens> Screens { get; set; }
         //public virtual DbSet<Forms> Forms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

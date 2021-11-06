@@ -7,9 +7,13 @@
 
   <ItemGroup>
     <Compile Remove="Views\User\**" />
+    <Compile Remove="wwwroot\CompanyLogo\**" />
     <Content Remove="Views\User\**" />
+    <Content Remove="wwwroot\CompanyLogo\**" />
     <EmbeddedResource Remove="Views\User\**" />
+    <EmbeddedResource Remove="wwwroot\CompanyLogo\**" />
     <None Remove="Views\User\**" />
+    <None Remove="wwwroot\CompanyLogo\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,10 +35,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\CompanyLogo\" />
   </ItemGroup>
 
   <ItemGroup>

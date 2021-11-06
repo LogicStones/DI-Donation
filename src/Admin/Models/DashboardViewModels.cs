@@ -18,4 +18,14 @@ namespace Admin.Models
         public string SponsorAddress { get; set; }
         public string SponsorPostCode { get; set; }
     }
+
+    public class CampaignViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public float Amount { get; set; }
+        public float Fees { get; set; }
+        public string TransactionId { get; set; }
+        public DateTime CreatedAt { get; set; }
+    }
 }

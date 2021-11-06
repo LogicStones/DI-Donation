@@ -1,0 +1,53 @@
+﻿
+@model List<ScreenSaverViewModel>
+
+@{
+    ViewData["Title"] = "Screen Saver";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <h4 class="card-title">Screen Saver</h4>
+                            <h6 class="card-subtitle">Recent Screen</h6>
+                        </div>
+                        <div class="col-md-6 pull-right">
+                            <a asp-action="Create" type="button" class="btn btn-success btn-rounded color1" style="float: right !important;"><i class="fa fa-plus-circle m-r-5"></i> Add New Screen</a>
+                        </div>
+                    </div>
+                    <div class="table-responsive m-t-40">
+                        <table id="myTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Added At</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var screen in Model)
+                                {
+                                <tr>
+                                    <td><h6><img src="@screen.ScreenName" height="50" width="50" asp-append-version="true" /></h6></td>
+                                    <td><h6>@screen.AddedAt</h6></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a asp-action="Delete" asp-route-id="@screen.Id" type="button" class="btn btn-danger">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -67,6 +67,43 @@ namespace API.Controllers
             return Ok(_response);
         }
 
+        [Route("pay-campaign")]
+        [HttpPost]
+        public IActionResult PayCampaign([FromBody] PayCampaignModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                _response.error = true;
+                _response.message = ResponseMessageKeys.invalidParameters;
+                return Ok(_response);
+            }
+
+            _context.Campaigns.Add(new Campaign
+            {
+                Name = model.Name,
+                Amount = model.Amount,
+                Fees = model.Fees,
+                TransactionId = model.TransactionId,
+                CreatedAt = DateTime.UtcNow
+            });
+
+            _context.SaveChanges();
+            _response.error = false;
+            _response.message = ResponseMessageKeys.success;
+            return Ok(_response);
+        }
+
+        [Route("get-screensaver")]
+        [HttpGet]
+        public IActionResult GetScreenSaver()
+        {
+            _response.data = _context.Screens.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
+            _response.error = false;
+            _response.message = ResponseMessageKeys.success;
+            return Ok(_response);
+        }
+
+
         [Route("get-categories")]
         [HttpGet]
         public IActionResult GetFormResponses(string type)
@@ -83,8 +120,17 @@ namespace API.Controllers
             if (type.ToLower().Equals("all"))
                 lstFilter.Add((int)CategoryType.Wajiba);
 
-            _response.data = _context.Category.Where(c => c.isActive == true && lstFilter.Contains(c.TypeId)).OrderBy(c => c.Name).ToList();
+            var subcategory = (from c in _context.Category
+                               where c.isActive == true && lstFilter.Contains(c.TypeId)
+                               orderby c.Name ascending
+                               select new
+                               {
+                                   c.Id,
+                                   c.Name,
+                                   sc = _context.SubCategories.Where(sc => sc.IsActive == true && sc.CategoryId == c.Id).OrderBy(sc => sc.Name).ToList()
+                               }).ToList();
 
+            _response.data = subcategory;
             _response.error = false;
             _response.message = ResponseMessageKeys.success;
             return Ok(_response);
