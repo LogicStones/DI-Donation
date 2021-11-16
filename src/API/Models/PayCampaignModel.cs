@@ -12,10 +12,10 @@ namespace API.Models
         public string Name { get; set; }
 
         [Required]
-        public float Amount { get; set; }
+        public string Amount { get; set; }
 
         [Required]
-        public float Fees { get; set; }
+        public string Fees { get; set; }
 
         [Required]
         public string TransactionId { get; set; }

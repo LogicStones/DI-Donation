@@ -69,7 +69,7 @@ namespace API.Controllers
 
         [Route("pay-campaign")]
         [HttpPost]
-        public IActionResult PayCampaign([FromBody] PayCampaignModel model)
+        public IActionResult PayCampaign([FromForm] PayCampaignModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -81,8 +81,8 @@ namespace API.Controllers
             _context.Campaigns.Add(new Campaign
             {
                 Name = model.Name,
-                Amount = model.Amount,
-                Fees = model.Fees,
+                Amount = float.Parse(model.Amount),
+                Fees = float.Parse(model.Fees),
                 TransactionId = model.TransactionId,
                 CreatedAt = DateTime.UtcNow
             });
