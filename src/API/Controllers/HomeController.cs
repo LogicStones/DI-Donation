@@ -127,6 +127,7 @@ namespace API.Controllers
                                {
                                    c.Id,
                                    c.Name,
+                                   Type = c.TypeId == 1 ? "Wajiba" : "Nafila",
                                    sc = _context.SubCategories.Where(sc => sc.IsActive == true && sc.CategoryId == c.Id).OrderBy(sc => sc.Name).ToList()
                                }).ToList();
 
