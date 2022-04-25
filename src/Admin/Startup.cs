@@ -100,7 +100,7 @@ namespace Admin
                 endpoints.MapRazorPages();
             });
 
-            await SeedData(serviceProvider);
+            //await SeedData(serviceProvider);
         }
 
         private async Task SeedData(IServiceProvider serviceProvider)
