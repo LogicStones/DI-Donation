@@ -26,8 +26,32 @@ namespace API
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+
+			var connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+			// Replace with your server version and type.
+			// Use 'MariaDbServerVersion' for MariaDB.
+			// Alternatively, use 'ServerVersion.AutoDetect(connectionString)'.
+			// For common usages, see pull request #1233.
+
+			//var serverVersion = new MySqlServerVersion(new System.Version(8, 0, 29));
+			var serverVersion = ServerVersion.AutoDetect(connectionString);
+
+
+			// Replace 'YourDbContext' with the name of your own DbContext derived class.
+			services.AddDbContext<ApplicationDbContext>(
+				dbContextOptions => dbContextOptions
+					.UseMySql(connectionString, serverVersion)
+					// The following three options help with debugging, but should
+					// be changed or removed for production.
+					//.LogTo(Console.WriteLine, LogLevel.Information)
+					//.EnableSensitiveDataLogging()
+					//.EnableDetailedErrors()
+			);
+
+
+			//services.AddDbContext<ApplicationDbContext>(options =>
+			//	options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
 			// configure strongly typed settings objects
 			var appSettingsSection = Configuration.GetSection("AppSettings");
