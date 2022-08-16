@@ -147,6 +147,42 @@ namespace Admin.Controllers
             return View(model);
         }
 
+        public ActionResult PassCode()
+        {
+            var model = new PassCodeViewModel();
+            var code = _context.PassCodes.OrderByDescending(pc => pc.LastUpdate).FirstOrDefault();
+
+            if(code != null)
+            {
+                model.AuthString = code.AuthString;
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PassCode(PassCodeViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.PassCodes.Add(new PassCode
+                {
+                    IsActive = true,
+                    AuthString = model.AuthString,
+                    LastUpdate = DateTime.UtcNow
+                });
+
+                _context.SaveChanges();
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Failed to update pass code.");
+                return View(model);
+            }
+
+            return RedirectToAction("Index");
+        }
+
         public ActionResult ChangePassword()
         {
             return View();

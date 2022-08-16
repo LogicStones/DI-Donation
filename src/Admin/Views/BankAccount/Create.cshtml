@@ -1,0 +1,63 @@
+﻿@model BankAccountViewModel
+@{
+    ViewData["Title"] = "Bank Account";
+}
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="card-title">Add New Bank Account</h4>
+                        </div>
+                        <div class="col-md-6 pull-right">
+                            <a asp-action="Index" type="button" class="btn btn-primary btn-rounded float-right" style="color: white;"><i class="fa fa-arrow-circle-left m-r-5"></i> Back</a>
+                        </div>
+                    </div>
+                    @Html.HiddenFor(model=>model.Id,new { @id="hdfBankAccountId"})
+                    <form asp-controller="BankAccount" asp-action="Create" style="margin-top: 20px;" method="post">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label asp-for="AccountName"></label>
+                                <input asp-for="AccountName" id="txtTitle" class="form-control" />
+                                <span asp-validation-for="AccountName" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label asp-for="SumUpMerchantId"></label>
+                                <input asp-for="SumUpMerchantId" id="txtTitle" class="form-control" />
+                                <span asp-validation-for="SumUpMerchantId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-12 text-right">
+                            <button id="btnSave" type="submit" class="btn btn-success btn-rounded color1">
+                                @if (Model.Id > 0)
+                                {
+                                    @Html.HiddenFor(m => m.Id)
+                                    <i class="fa fa-check-circle m-r-5"></i>
+                                    <span>Update</span>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-plus-circle m-r-5"></i>
+                                    <span>Add</span>
+                                }
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

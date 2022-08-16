@@ -132,6 +132,28 @@ namespace API.Controllers
             return Ok(_response);
         }
 
+        [Route("get-bank-accounts")]
+        [HttpGet]
+        public IActionResult GetBankAccounts()
+        {
+            _response.data = _context.BankAccounts.Where(x => x.IsActive == true).OrderByDescending(x => x.Id).ToList();
+            _response.error = false;
+            _response.message = ResponseMessageKeys.success;
+            return Ok(_response);
+        }
+
+        [Route("verify-passcode")]
+        [HttpPost]
+        public IActionResult VerifyPassCode([FromForm] string AuthString)
+        {
+            _response.data = new Dictionary<string, string> {
+                { "isVerified", AuthString.Equals(_context.PassCodes.OrderByDescending(pc => pc.LastUpdate).FirstOrDefault().AuthString) ? "true" : "false" }
+            };
+            _response.error = false;
+            _response.message = ResponseMessageKeys.success;
+            return Ok(_response);
+        }
+
 
         [Route("get-categories")]
         [HttpGet]

@@ -60,9 +60,7 @@ namespace Services
 
     public class AppSettings
     {
-        public string Secret { get; set; }
-        public string PublicWebsite { get; set; }
-        public string PortalDomain { get; set; }
-        public string APIDomain { get; set; }
+        public string ClientSecret { get; set; }
+        public string ClientId { get; set; }
     }
 }

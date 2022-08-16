@@ -1,0 +1,56 @@
+﻿@model List<BankAccountViewModel>
+@{
+    ViewData["Title"] = "Bank Accounts";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="card-title">Bank Accounts</h4>
+                            <h6 class="card-subtitle">List of Authorized Bank Accounts</h6>
+                        </div>
+                        <div class="col-md-6 pull-right">
+                            <a asp-action="Create" type="button" class="btn btn-success btn-rounded color1" style="float: right !important;"><i class="fa fa-plus-circle m-r-5"></i> Add New</a>
+                        </div>
+                    </div>
+                    <div class="table-responsive m-t-40">
+                        <table id="myTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Account Name</th>
+                                    <th>Merchant ID</th>
+                                    @*<th>Status</th>*@
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var account in Model)
+                                {
+                                    <tr>
+                                        <td><h6>@account.AccountName</h6></td>
+                                        <td><h6>@account.SumUpMerchantId</h6></td>
+                                        @*<td><h6>@category.Status</h6></td>*@
+                                        <td>
+                                            <div class="btn-group">
+                                                <a asp-action="Create" asp-route-id="@account.Id" type="button" class="btn btn-success color1">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>&nbsp;&nbsp;
+                                                <a asp-action="Delete" asp-route-id="@account.Id" type="button" class="btn btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

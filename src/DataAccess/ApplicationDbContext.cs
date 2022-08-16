@@ -31,6 +31,8 @@ namespace DataAccess
         public virtual DbSet<SubCategories> SubCategories { get; set; }
         public virtual DbSet<Campaign> Campaigns { get; set; }
         public virtual DbSet<Screens> Screens { get; set; }
+        public virtual DbSet<PassCode> PassCodes { get; set; }
+        public virtual DbSet<BankAccount> BankAccounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

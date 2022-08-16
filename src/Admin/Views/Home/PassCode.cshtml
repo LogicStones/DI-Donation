@@ -1,0 +1,30 @@
+﻿@model PassCodeViewModel
+
+@{
+	ViewData["Title"] = "Pass Code";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card card-body">
+				<h3 class="box-title m-b-0">Pass Code to access application home screen</h3>
+				<form style="margin-top: 20px;" method="post">
+					<div asp-validation-summary="All" class="text-danger"></div>
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label asp-for="AuthString"></label>
+							<input asp-for="AuthString" class="form-control" />
+							<span asp-validation-for="AuthString" class="text-danger"></span>
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="form-group">
+							<button type="submit" class="btn btn-success waves-effect waves-light m-r-10" style="background: #779216 !important; float: right; ">Save</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
