@@ -3,10 +3,12 @@ using API.Models;
 using DataAccess;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -57,6 +59,41 @@ namespace API.Controllers
             _response.error = false;
             _response.message = ResponseMessageKeys.success;
             return Ok(_response);
+        }
+
+
+        [Route("get-access-token")]
+        [HttpGet]
+        public async Task<IActionResult> GetAccessToken(string code, string state)
+        {
+            var options = new RestClientOptions("https://api.sumup.com/token")
+            {
+                ThrowOnAnyError = true,
+                Timeout = -1
+            };
+            var client = new RestClient(options);
+
+            var request = new RestRequest();
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddParameter("grant_type", "authorization_code");
+            request.AddParameter("client_id", "cc_classic_27NmlG0lIDlSou2LYaBqL5P6aoBSo");
+            request.AddParameter("client_secret", "cc_sk_classic_WP5E2G4rALkwxyBRaFXJut18P3YQh0780aSYY29k7IgDuYuUsd");
+            request.AddParameter("code", code);
+            request.AddParameter("state", state);
+            try
+            {
+                _response.data = (await client.ExecutePostAsync<SumUpAccessToken>(request)).Data;
+                _response.error = false;
+                _response.message = ResponseMessageKeys.success;
+                return Ok(_response);
+            }
+            catch (Exception ex)
+            {
+                _response.data = ex;
+                _response.error = true;
+                _response.message = ResponseMessageKeys.serverError;
+                return Ok(_response);
+            }
         }
 
         [Route("pay-campaign")]
@@ -128,5 +165,13 @@ namespace API.Controllers
             _response.message = ResponseMessageKeys.success;
             return Ok(_response);
         }
+    }
+
+    public class SumUpAccessToken
+    {
+        public dynamic access_token { get; set; }
+        public dynamic token_type { get; set; }
+        public dynamic expires_in { get; set; }
+        public dynamic refresh_token { get; set; }
     }
 }
